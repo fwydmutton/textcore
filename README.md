@@ -4,9 +4,13 @@ A simple online notepad that lets you share text using a link. No login. No back
 
 ---
 # Use the site here
-
+https://fwydmutton.github.io/textcore/
 
 ---
+## Preview
+
+
+
 ## Features
 
 * Paste any text
