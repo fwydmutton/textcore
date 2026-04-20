@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>textcore</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000000;
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+header {
+  padding: 10px;
+  text-align: center;
+  background: #111827;
+  font-weight: bold;
+}
+textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 15px;
+  font-size: 14px;
+  background: #000000;
+  color: #e5e7eb;
+}
+.controls {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  background: #111827;
+}
+button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background: #000000;
+  color: white;
+  border-radius: 6px;
+}
+button:hover {
+  background: #1d4ed8;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 4px;
+  background: #020617;
+  color: #e5e7eb;
+}
+</style>
+</head>
+<body>
+
+<header>textcore</header>
+
+<textarea id="text" placeholder="Paste anything here..."></textarea>
+
+<div class="controls">
+  <button onclick="generateLink()">Generate Link</button>
+  <button onclick="copyLink()">Copy Link</button>
+  <button onclick="clearText()">Clear</button>
+</div>
+
+<input id="link" readonly placeholder="Your shareable link will appear here">
+
+<!-- LZ-String CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+
+<script>
+function generateLink() {
+  const text = document.getElementById("text").value;
+  if (!text) return;
+
+  const compressed = LZString.compressToEncodedURIComponent(text);
+  const url = location.origin + location.pathname + "#" + compressed;
+
+  document.getElementById("link").value = url;
+  location.hash = compressed;
+}
+
+function copyLink() {
+  const link = document.getElementById("link");
+  if (!link.value) return;
+
+  link.select();
+  document.execCommand("copy");
+}
+
+function clearText() {
+  document.getElementById("text").value = "";
+  document.getElementById("link").value = "";
+  location.hash = "";
+}
+
+function loadFromURL() {
+  const hash = location.hash.slice(1);
+  if (hash) {
+    try {
+      const decompressed = LZString.decompressFromEncodedURIComponent(hash);
+      document.getElementById("text").value = decompressed || "";
+      document.getElementById("link").value = location.href;
+    } catch {
+      document.getElementById("text").value = "";
+    }
+  }
+}
+
+window.onload = loadFromURL;
+</script>
+
+</body>
+</html>
