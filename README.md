@@ -8,7 +8,7 @@ https://fwydmutton.github.io/textcore/
 
 ---
 ## Preview
-![image](https://github.com/fwydmutton/textcore/blob/main/Screenshot_20260420_171517.png?raw=true)
+![image](https://github.com/fwydmutton/textcore/blob/main/Preview/Screenshot_20260420_171517.png?raw=true)
 
 ---
 ## Features
